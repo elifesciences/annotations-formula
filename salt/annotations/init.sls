@@ -73,9 +73,7 @@ composer-install:
 
 maintenance-mode-end:
     cmd.run:
-        - name: |
-            ln -s /etc/nginx/sites-available/annotations.conf /etc/nginx/sites-enabled/annotations.conf
-            /etc/init.d/nginx reload
+        - name: /etc/init.d/nginx reload
         - require:
             - annotations-nginx-vhost
 
