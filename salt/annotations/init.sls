@@ -69,7 +69,6 @@ composer-install:
             - COMPOSER_DISCARD_CHANGES: 'true'
         - require:
             - file: config-file
-            - cmd: var-directory
             - php
 
 maintenance-mode-end:
