@@ -32,6 +32,28 @@ annotations-repository:
         - require:
             - builder: annotations-repository
 
+# files and directories must be readable and writable by both elife and www-data
+# they are both in the www-data group, but the g+s flag makes sure that
+# new files and directories created inside have the www-data group
+var-directory:
+    file.directory:
+        - name: /srv/annotations/var
+        - user: {{ pillar.elife.webserver.username }}
+        - group: {{ pillar.elife.webserver.username }}
+        - dir_mode: 775
+        - file_mode: 660
+        - recurse:
+            - user
+            - group
+            - mode
+        - require:
+            - builder: journal-repository
+
+    cmd.run:
+        - name: chmod -R g+s /srv/annotations/var
+        - require:
+            - file: var-directory
+
 config-file:
     file.managed:
         - name: /srv/annotations/app/config/parameters.yml
@@ -61,6 +83,7 @@ composer-install:
         - require:
             - file: config-file
             - php
+            - var-directory
 
 {% for title, user in pillar.annotations.web_users.items() %}
 annotations-nginx-authentication-{{ title }}:
