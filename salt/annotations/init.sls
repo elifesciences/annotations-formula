@@ -85,18 +85,6 @@ composer-install:
             - php
             - var-directory
 
-{% for title, user in pillar.annotations.web_users.items() %}
-annotations-nginx-authentication-{{ title }}:
-    webutil.user_exists:
-        - name: {{ user.username }}
-        - password: {{ user.password }}
-        - htpasswd_file: /etc/nginx/annotations.htpasswd
-        - force: True
-        - require:
-            - annotations-nginx-vhost
-{% endfor %}
-
-
 syslog-ng-for-annotations-logs:
     file.managed:
         - name: /etc/syslog-ng/conf.d/annotations.conf
