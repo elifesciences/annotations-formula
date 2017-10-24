@@ -47,7 +47,7 @@ var-directory:
             - group
             - mode
         - require:
-            - builder: journal-repository
+            - builder: annotations-repository
 
     cmd.run:
         - name: chmod -R g+s /srv/annotations/var
