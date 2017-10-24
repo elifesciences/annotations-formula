@@ -1,11 +1,3 @@
-maintenance-mode-start:
-    cmd.run:
-        - name: |
-            rm -f /etc/nginx/sites-enabled/annotations.conf
-            /etc/init.d/nginx reload
-        - require:
-            - nginx-server-service
-
 annotations-nginx-vhost:
     file.managed:
         - name: /etc/nginx/sites-enabled/annotations.conf
@@ -13,8 +5,8 @@ annotations-nginx-vhost:
         - template: jinja
         - require:
             - nginx-config
-        - require_in:
-            - cmd: maintenance-mode-start
+        - watch-in:
+            - nginx-service
 
 annotations-repository:
     builder.git_latest:
@@ -29,7 +21,6 @@ annotations-repository:
         - fetch_pull_requests: True
         - require:
             - cmd: composer
-            - maintenance-mode-start
 
     file.directory:
         - name: /srv/annotations
@@ -70,18 +61,6 @@ composer-install:
         - require:
             - file: config-file
             - php
-
-maintenance-mode-end:
-    cmd.run:
-        - name: /etc/init.d/nginx reload
-        - require:
-            - annotations-nginx-vhost
-
-maintenance-mode-check-nginx-stays-up:
-    cmd.run:
-        - name: sleep 2 && /etc/init.d/nginx status
-        - require:
-            - maintenance-mode-end
 
 {% for title, user in pillar.annotations.web_users.items() %}
 annotations-nginx-authentication-{{ title }}:
