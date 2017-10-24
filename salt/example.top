@@ -5,6 +5,5 @@ base:
         - elife.composer
         - elife.nginx
         - elife.nginx-php7
-        - elife.nginx-error-pages
         - elife.proofreader-php
         - annotations
