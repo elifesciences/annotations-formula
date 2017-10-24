@@ -1,1 +1,1 @@
-elifeFormula('journal', '/srv/journal')
+elifeFormula('annotations', '/srv/annotations')
