@@ -1,4 +1,4 @@
-/srv/journal/var/logs/*.log {
+/srv/annotations/var/logs/*.log {
     daily
     rotate 7
     notifempty

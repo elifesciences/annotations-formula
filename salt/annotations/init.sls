@@ -1,11 +1,3 @@
-maintenance-mode-start:
-    cmd.run:
-        - name: |
-            rm -f /etc/nginx/sites-enabled/annotations.conf
-            /etc/init.d/nginx reload
-        - require:
-            - nginx-server-service
-
 annotations-nginx-vhost:
     file.managed:
         - name: /etc/nginx/sites-enabled/annotations.conf
@@ -13,8 +5,8 @@ annotations-nginx-vhost:
         - template: jinja
         - require:
             - nginx-config
-        - require_in:
-            - cmd: maintenance-mode-start
+        - watch-in:
+            - nginx-service
 
 annotations-repository:
     builder.git_latest:
@@ -29,7 +21,6 @@ annotations-repository:
         - fetch_pull_requests: True
         - require:
             - cmd: composer
-            - maintenance-mode-start
 
     file.directory:
         - name: /srv/annotations
@@ -40,6 +31,28 @@ annotations-repository:
             - group
         - require:
             - builder: annotations-repository
+
+# files and directories must be readable and writable by both elife and www-data
+# they are both in the www-data group, but the g+s flag makes sure that
+# new files and directories created inside have the www-data group
+var-directory:
+    file.directory:
+        - name: /srv/annotations/var
+        - user: {{ pillar.elife.webserver.username }}
+        - group: {{ pillar.elife.webserver.username }}
+        - dir_mode: 775
+        - file_mode: 660
+        - recurse:
+            - user
+            - group
+            - mode
+        - require:
+            - builder: annotations-repository
+
+    cmd.run:
+        - name: chmod -R g+s /srv/annotations/var
+        - require:
+            - file: var-directory
 
 config-file:
     file.managed:
@@ -70,30 +83,7 @@ composer-install:
         - require:
             - file: config-file
             - php
-
-maintenance-mode-end:
-    cmd.run:
-        - name: /etc/init.d/nginx reload
-        - require:
-            - annotations-nginx-vhost
-
-maintenance-mode-check-nginx-stays-up:
-    cmd.run:
-        - name: sleep 2 && /etc/init.d/nginx status
-        - require:
-            - maintenance-mode-end
-
-{% for title, user in pillar.annotations.web_users.items() %}
-annotations-nginx-authentication-{{ title }}:
-    webutil.user_exists:
-        - name: {{ user.username }}
-        - password: {{ user.password }}
-        - htpasswd_file: /etc/nginx/annotations.htpasswd
-        - force: True
-        - require:
-            - annotations-nginx-vhost
-{% endfor %}
-
+            - var-directory
 
 syslog-ng-for-annotations-logs:
     file.managed:
