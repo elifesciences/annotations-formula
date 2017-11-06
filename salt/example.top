@@ -12,4 +12,3 @@ base:
         - elife.proofreader-php
         - elife.docker
         - elife.goaws
-
