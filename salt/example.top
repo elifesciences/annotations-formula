@@ -5,5 +5,10 @@ base:
         - elife.composer
         - elife.nginx
         - elife.nginx-php7
-        - elife.proofreader-php
+        - elife.aws-credentials
+        - elife.aws-cli
         - annotations
+        # for testing
+        - elife.proofreader-php
+        - elife.docker
+        - elife.goaws
