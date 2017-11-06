@@ -7,3 +7,8 @@ annotations:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     web_users: {}
+
+elife:
+    aws:
+        access_key_id: AKIAFAKE
+        secret_access_key: fake
