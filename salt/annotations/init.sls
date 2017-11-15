@@ -5,7 +5,7 @@ annotations-nginx-vhost:
         - template: jinja
         - require:
             - nginx-config
-        - watch-in:
+        - listen_in:
             - nginx-service
 
 annotations-repository:
