@@ -6,7 +6,7 @@ annotations-nginx-vhost:
         - require:
             - nginx-config
         - listen_in:
-            - nginx-service
+            - service: nginx-server-service
 
 annotations-repository:
     builder.git_latest:
