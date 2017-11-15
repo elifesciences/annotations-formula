@@ -56,8 +56,8 @@ var-directory:
 
 config-file:
     file.managed:
-        - name: /srv/annotations/app/config/parameters.yml
-        - source: salt://annotations/config/srv-annotations-app-config-parameters.yml
+        - name: /srv/annotations/config.php
+        - source: salt://annotations/config/srv-annotations-config.php
         - template: jinja
         - user: {{ pillar.elife.deploy_user.username }}
         - group: {{ pillar.elife.deploy_user.username }}
