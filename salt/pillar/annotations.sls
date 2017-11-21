@@ -1,8 +1,11 @@
 annotations:
-    hypothesis_api_url: https://hypothes.is/
-    hypothesis_api_publisher: __world__
-    ttl: 0
-    secret: ThisTokenIsNotSoSecretChangeIt
+    logging:
+        level: DEBUG
+    hypothesis:
+        api_url: https://hypothes.is/api
+        client_id: null
+        secret_key: null
+        authority: null
 
 elife:
     aws:
