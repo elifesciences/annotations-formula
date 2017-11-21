@@ -20,6 +20,8 @@ return [
         'region' => '{{ pillar.elife.aws.region }}',
         {% if pillar.elife.env in ['dev', 'ci'] -%}
         'endpoint' => 'http://localhost:4100',
+        {%- else -%}
+        'endpoint' => null,
         {%- endif %}
     ],
 ];
