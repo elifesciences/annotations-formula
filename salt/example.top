@@ -10,6 +10,7 @@ base:
         - annotations
         - elife.php-long-running-processes
         # for testing
+        - elife.php-dummies
         - elife.proofreader-php
         - elife.docker
         - elife.goaws
