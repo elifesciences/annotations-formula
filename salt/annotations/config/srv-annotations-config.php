@@ -15,7 +15,7 @@ return [
     ],
     'aws' => [
         'queue_name' => 'annotations--{{ pillar.elife.env }}',
-        'queue_message_default_type' => 'profiles',
+        'queue_message_default_type' => 'profile',
         'credential_file' => true,
         'region' => '{{ pillar.elife.aws.region }}',
         {% if pillar.elife.env in ['dev', 'ci'] -%}
