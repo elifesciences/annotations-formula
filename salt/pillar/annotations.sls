@@ -1,4 +1,5 @@
 annotations:
+    api_url: http://localhost:8083/
     logging:
         level: DEBUG
     hypothesis:
@@ -21,7 +22,11 @@ elife:
                     number: 1
                     require: composer-install
     php_dummies:
+        api_dummy:
+            repository: https://github.com/elifesciences/api-dummy
+            pinned_revision_file: /srv/annotations/api-dummy.sha1
+            port: 8081  # 8082 for https
         hypothesis_dummy:
             repository: https://github.com/elifesciences/hypothesis-dummy
             pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
-            port: 8081  # 8082 for https
+            port: 8083  # 8084 for https
