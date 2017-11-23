@@ -20,3 +20,8 @@ elife:
                     command: /srv/annotations/bin/console queue:watch
                     number: 1
                     require: composer-install
+    php_dummies:
+        hypothesis_dummy:
+            repository: https://github.com/elifesciences/hypothesis-dummy
+            pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
+            port: 8081  # 8082 for https
