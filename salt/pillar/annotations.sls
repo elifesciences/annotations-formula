@@ -1,4 +1,5 @@
 annotations:
+    api_url: http://localhost:8083/
     logging:
         level: DEBUG
     hypothesis:

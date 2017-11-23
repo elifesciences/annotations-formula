@@ -4,6 +4,7 @@ use Psr\Log\LogLevel;
 
 return [
     'debug' => false,
+    'api_url' => '{{ pillar.annotations.api_url }}',
     'logging' => [
         'level' => LogLevel::{{ pillar.annotations.logging.level }},
     ],
