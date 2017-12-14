@@ -4,9 +4,18 @@ annotations:
         level: DEBUG
     hypothesis:
         api_url: https://hypothes.is/api
+        # deprecated
         client_id: null
+        # deprecated
         secret_key: null
+        user_management:
+            client_id: fakeclient
+            secret_key: fake
+        jwt_signing:
+            client_id: fakeclient
+            secret_key: fake
         authority: null
+        group: null
 
 elife:
     aws:
