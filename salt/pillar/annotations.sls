@@ -10,10 +10,10 @@ annotations:
         secret_key: null
         user_management:
             client_id: fakeclient
-            secret_key: fake
+            client_secret: fake
         jwt_signing:
             client_id: fakeclient
-            secret_key: fake
+            client_secret: fake
         authority: null
         group: null
 

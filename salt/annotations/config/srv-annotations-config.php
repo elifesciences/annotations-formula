@@ -17,11 +17,11 @@ return [
 
         'user_management' => [
             'client_id' => '{{ pillar.annotations.hypothesis.user_management.client_id }}',
-            'secret_key' => '{{ pillar.annotations.hypothesis.user_management.secret_key }}',
+            'client_secret' => '{{ pillar.annotations.hypothesis.user_management.client_secret }}',
         ],
         'jwt_signing' => [
             'client_id' => '{{ pillar.annotations.hypothesis.jwt_signing.client_id }}',
-            'secret_key' => '{{ pillar.annotations.hypothesis.jwt_signing.secret_key }}',
+            'client_secret' => '{{ pillar.annotations.hypothesis.jwt_signing.client_secret }}',
         ],
         'authority' => '{{ pillar.annotations.hypothesis.authority }}',
         'group' => '{{ pillar.annotations.hypothesis.group }}',
