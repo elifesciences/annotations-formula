@@ -10,9 +10,21 @@ return [
     ],
     'hypothesis' => [
         'api_url' => '{{ pillar.annotations.hypothesis.api_url }}',
+        // deprecated
         'client_id' => '{{ pillar.annotations.hypothesis.client_id }}',
+        // deprecated
         'secret_key' => '{{ pillar.annotations.hypothesis.secret_key }}',
+
+        'user_management' => [
+            'client_id' => '{{ pillar.annotations.hypothesis.user_management.client_id }}',
+            'client_secret' => '{{ pillar.annotations.hypothesis.user_management.client_secret }}',
+        ],
+        'jwt_signing' => [
+            'client_id' => '{{ pillar.annotations.hypothesis.jwt_signing.client_id }}',
+            'client_secret' => '{{ pillar.annotations.hypothesis.jwt_signing.client_secret }}',
+        ],
         'authority' => '{{ pillar.annotations.hypothesis.authority }}',
+        'group' => '{{ pillar.annotations.hypothesis.group }}',
     ],
     'aws' => [
         'queue_name' => 'annotations--{{ pillar.elife.env }}',
