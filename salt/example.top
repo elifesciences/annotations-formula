@@ -14,3 +14,4 @@ base:
         - elife.php-long-running-processes
         # for testing
         - elife.php-dummies
+        - elife.goaws

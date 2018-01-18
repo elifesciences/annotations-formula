@@ -104,3 +104,14 @@ logrotate-for-annotations-logs:
     file.managed:
         - name: /etc/logrotate.d/annotations
         - source: salt://annotations/config/etc-logrotate.d-annotations
+
+{% if pillar.elife.env in ['dev', 'ci'] %}
+annotations-queue-create:
+    cmd.run:
+        - name: aws sqs create-queue --region=us-east-1 --queue-name=annotations--{{ pillar.elife.env }} --endpoint=http://localhost:4100
+        - cwd: /home/{{ pillar.elife.deploy_user.username }}
+        - user: {{ pillar.elife.deploy_user.username }}
+        - require:
+            - goaws
+            - aws-credentials-deploy-user
+{% endif %}
