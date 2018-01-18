@@ -4,13 +4,14 @@ base:
         - elife.php7
         - elife.composer
         - elife.nginx
+        # deprecated in this project, remove when unnecessary
         - elife.nginx-php7
         - elife.aws-credentials
         - elife.aws-cli
         - annotations
+        - elife.docker
+        - annotations.containers
         - elife.php-long-running-processes
         # for testing
         - elife.php-dummies
-        - elife.proofreader-php
-        - elife.docker
         - elife.goaws

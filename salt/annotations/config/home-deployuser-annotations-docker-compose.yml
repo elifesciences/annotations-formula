@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    fpm:
+        image: "elifesciences/annotations_fpm:${IMAGE_TAG}"
+        volumes:
+            - /srv/annotations/config.php:/srv/annotations/config.php
+            - /srv/annotations/var/logs:/srv/annotations/var/logs
+            - /var/www/.aws/credentials/:/var/www/.aws/credentials
+        env_file:
+            - /home/{{ pillar.elife.deploy_user.username }}/annotations.env
+        ports:
+            - 9000:9000
+
