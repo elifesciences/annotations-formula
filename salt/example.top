@@ -8,9 +8,9 @@ base:
         - elife.aws-credentials
         - elife.aws-cli
         - annotations
+        - elife.docker
+        - annotations.containers
         - elife.php-long-running-processes
         # for testing
         - elife.php-dummies
         - elife.proofreader-php
-        - elife.docker
-        - elife.goaws

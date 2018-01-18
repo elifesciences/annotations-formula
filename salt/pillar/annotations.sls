@@ -16,6 +16,7 @@ annotations:
             client_secret: fake
         authority: null
         group: null
+    containerized: true
 
 elife:
     aws:
