@@ -50,7 +50,11 @@ var-directory:
             - builder: annotations-repository
 
     cmd.run:
-        - name: chmod -R g+s /srv/annotations/var
+        - name: |
+            chmod -R g+s /srv/annotations/var
+            mkdir -p /srv/annotations/var/logs
+            chown elife:www-data /srv/annotations/var/logs
+            chmod 775 /srv/annotations/var/logs
         - require:
             - file: var-directory
 
