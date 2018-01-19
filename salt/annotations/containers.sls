@@ -1,5 +1,3 @@
-{% if pillar.annotations.containerized %}
-
 # variable for docker-compose
 annotations-docker-compose-.env:
     file.managed:
@@ -35,5 +33,3 @@ annotations-docker-containers:
             - annotations-docker-compose-.env
             - annotations-containers-env
             - annotations-docker-compose-yml
-
-{% endif %}
