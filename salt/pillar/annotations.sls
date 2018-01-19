@@ -39,3 +39,6 @@ elife:
             repository: https://github.com/elifesciences/hypothesis-dummy
             pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
             port: 8083  # 8084 for https
+    goaws:
+        queues:
+            - annotations--{{ pillar.elife.env }}
