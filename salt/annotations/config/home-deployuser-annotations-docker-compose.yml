@@ -11,4 +11,5 @@ services:
             - /home/{{ pillar.elife.deploy_user.username }}/annotations.env
         ports:
             - 9000:9000
+        restart: always
 
