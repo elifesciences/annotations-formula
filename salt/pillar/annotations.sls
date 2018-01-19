@@ -21,15 +21,6 @@ elife:
     aws:
         access_key_id: AKIAFAKE
         secret_access_key: fake
-    php:
-        processes:
-            #enabled: True
-            configuration: 
-                queue_watch:
-                    folder: /srv/annotations
-                    command: /srv/annotations/bin/console queue:watch
-                    number: 1
-                    require: composer-install
     php_dummies:
         api_dummy:
             repository: https://github.com/elifesciences/api-dummy

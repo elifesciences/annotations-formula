@@ -32,7 +32,7 @@ return [
         'credential_file' => true,
         'region' => '{{ pillar.elife.aws.region }}',
         {% if pillar.elife.env in ['dev', 'ci'] -%}
-        'endpoint' => 'http://localhost:4100',
+        'endpoint' => 'http://goaws:4100',
         {%- else -%}
         'endpoint' => null,
         {%- endif %}
