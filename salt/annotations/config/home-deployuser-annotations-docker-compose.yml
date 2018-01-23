@@ -12,4 +12,14 @@ services:
         ports:
             - 9000:9000
         restart: always
+    queue_watch:
+        image: "elifesciences/annotations_cli:${IMAGE_TAG}"
+        command: bin/console queue:watch
+        volumes:
+            - /srv/annotations/config.php:/srv/annotations/config.php
+            - /srv/annotations/var/logs:/srv/annotations/var/logs
+            - /var/www/.aws/credentials/:/var/www/.aws/credentials
+        env_file:
+            - /home/{{ pillar.elife.deploy_user.username }}/annotations.env
+        restart: always
 

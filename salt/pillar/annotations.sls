@@ -16,21 +16,11 @@ annotations:
             client_secret: fake
         authority: null
         group: null
-    containerized: true
 
 elife:
     aws:
         access_key_id: AKIAFAKE
         secret_access_key: fake
-    php:
-        processes:
-            #enabled: True
-            configuration: 
-                queue_watch:
-                    folder: /srv/annotations
-                    command: /srv/annotations/bin/console queue:watch
-                    number: 1
-                    require: composer-install
     php_dummies:
         api_dummy:
             repository: https://github.com/elifesciences/api-dummy
@@ -40,3 +30,6 @@ elife:
             repository: https://github.com/elifesciences/hypothesis-dummy
             pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
             port: 8083  # 8084 for https
+    goaws:
+        queues:
+            - annotations--{{ pillar.elife.env }}
