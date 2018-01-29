@@ -104,11 +104,3 @@ logrotate-for-annotations-logs:
     file.managed:
         - name: /etc/logrotate.d/annotations
         - source: salt://annotations/config/etc-logrotate.d-annotations
-
-cleanup-old-processes:
-    cmd.run:
-        - name: |
-            systemctl stop annotations-queue-watch@1 || true
-            systemctl disable annotations-queue-watch@1 || true
-            rm -f /lib/systemd/system/annotations-queue-watch@.service
-            systemctl daemon-reload

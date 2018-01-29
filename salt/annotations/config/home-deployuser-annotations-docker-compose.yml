@@ -8,7 +8,7 @@ services:
             - /srv/annotations/var/logs:/srv/annotations/var/logs
             - /var/www/.aws/credentials/:/var/www/.aws/credentials
         env_file:
-            - /home/{{ pillar.elife.deploy_user.username }}/annotations.env
+            - /home/{{ pillar.elife.deploy_user.username }}/annotations/containers.env
         ports:
             - 9000:9000
         restart: always
@@ -20,6 +20,6 @@ services:
             - /srv/annotations/var/logs:/srv/annotations/var/logs
             - /var/www/.aws/credentials/:/var/www/.aws/credentials
         env_file:
-            - /home/{{ pillar.elife.deploy_user.username }}/annotations.env
+            - /home/{{ pillar.elife.deploy_user.username }}/annotations/containers.env
         restart: always
 
