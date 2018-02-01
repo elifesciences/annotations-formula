@@ -31,5 +31,6 @@ elife:
             pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
             port: 8083  # 8084 for https
     goaws:
+        host: goaws  # used only by containers
         queues:
             - annotations--{{ pillar.elife.env }}
