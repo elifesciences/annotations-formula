@@ -28,7 +28,7 @@ elife:
                 image: elifesciences/api-dummy
                 name: api-dummy
                 port: 8001
-                enabled: True
+                enabled: true
             hypothesis_dummy:
                 image: elifesciences/hypothesis-dummy
                 name: hypothesis-dummy
