@@ -38,6 +38,11 @@ elife:
                 name: api-dummy
                 port: 8001
                 enabled: True
+            hypothesis_dummy:
+                image: elifesciences/hypothesis-dummy
+                name: hypothesis-dummy
+                port: 8003
+                enabled: True
     goaws:
         host: goaws  # used only by containers
         queues:
