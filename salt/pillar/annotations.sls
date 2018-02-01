@@ -1,9 +1,9 @@
 annotations:
-    api_url: http://localhost:8083/
+    api_url: http://api_dummy:8080/
     logging:
         level: DEBUG
     hypothesis:
-        api_url: https://hypothes.is/api
+        api_url: http://hypothesis_dummy:8080
         # deprecated
         client_id: null
         # deprecated
@@ -21,15 +21,6 @@ elife:
     aws:
         access_key_id: AKIAFAKE
         secret_access_key: fake
-    php_dummies:
-        api_dummy:
-            repository: https://github.com/elifesciences/api-dummy
-            pinned_revision_file: /srv/annotations/api-dummy.sha1
-            port: 8081  # 8082 for https
-        hypothesis_dummy:
-            repository: https://github.com/elifesciences/hypothesis-dummy
-            pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
-            port: 8083  # 8084 for https
     sidecars:
         main: elifesciences/annotations_cli
         containers:
