@@ -30,6 +30,14 @@ elife:
             repository: https://github.com/elifesciences/hypothesis-dummy
             pinned_revision_file: /srv/annotations/hypothesis-dummy.sha1
             port: 8083  # 8084 for https
+    sidecars:
+        main: elifesciences/annotations_cli
+        containers:
+            api_dummy:
+                image: elifesciences/api-dummy
+                name: api-dummy
+                port: 8001
+                enabled: True
     goaws:
         host: goaws  # used only by containers
         queues:
