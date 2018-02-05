@@ -8,19 +8,38 @@ annotations-nginx-vhost:
         - listen_in:
             - service: nginx-server-service
 
-annotations-repository:
-    builder.git_latest:
-        - name: git@github.com:elifesciences/annotations.git
-        - identity: {{ pillar.elife.projects_builder.key or '' }}
-        - rev: {{ salt['elife.rev']() }}
-        - branch: {{ salt['elife.branch']() }}
-        - target: /srv/annotations/
-        - force_fetch: True
-        - force_checkout: True
-        - force_reset: True
-        - fetch_pull_requests: True
-        - require:
-            - cmd: composer
+annotations-folder:
+    # carefully removing everything but config.php and var/logs
+    # which are mounted inside the container
+    # TODO: remove when all nodes are up-to-date
+    cmd.run:
+        - name: |
+            rm -rf /srv/annotations/*.sha1
+            rm -rf /srv/annotations/bin/
+            rm -rf /srv/annotations/build/
+            rm -rf /srv/annotations/composer.*
+            rm -rf /srv/annotations/config/
+            rm -rf /srv/annotations/config.php.example
+            rm -rf /srv/annotations/dev.env
+            rm -rf /srv/annotations/docker-compose.*
+            rm -rf /srv/annotations/Dockerfile.*
+            rm -rf /srv/annotations/.dockerignore
+            rm -rf /srv/annotations/.env
+            rm -rf /srv/annotations/.git/
+            rm -rf /srv/annotations/.gitignore
+            rm -rf /srv/annotations/Jenkinsfile*
+            rm -rf /srv/annotations/LICENSE
+            rm -rf /srv/annotations/maintainers.txt
+            rm -rf /srv/annotations/.php_cs
+            rm -rf /srv/annotations/phpunit.xml.dist
+            rm -rf /srv/annotations/*.sh
+            rm -rf /srv/annotations/README.md
+            rm -rf /srv/annotations/scripts/
+            rm -rf /srv/annotations/src/
+            rm -rf /srv/annotations/tests/
+            rm -rf /srv/annotations/vendor/
+            # TODO: does nginx depend on this?
+            #rm -rf /srv/annotations/web
 
     file.directory:
         - name: /srv/annotations
@@ -30,7 +49,15 @@ annotations-repository:
             - user
             - group
         - require:
-            - builder: annotations-repository
+            - cmd: annotations-folder
+
+annotations-folder-web:
+    file.managed:
+        - name: /srv/annotations/web/app.php
+        - contents: ''
+        - makedirs: True
+        - require:
+            - annotations-folder
 
 # files and directories must be readable and writable by both elife and www-data
 # they are both in the www-data group, but the g+s flag makes sure that
@@ -47,7 +74,7 @@ var-directory:
             - group
             - mode
         - require:
-            - builder: annotations-repository
+            - annotations-folder
 
     cmd.run:
         - name: |
@@ -66,28 +93,16 @@ config-file:
         - user: {{ pillar.elife.deploy_user.username }}
         - group: {{ pillar.elife.deploy_user.username }}
         - require:
-            - file: annotations-repository
+            - annotations-folder
 
-composer-install:
-    cmd.run:
-        {% if pillar.elife.env in ['prod', 'demo', 'end2end', 'continuumtest'] %}
-        - name: composer --no-interaction install --no-suggest --classmap-authoritative --no-dev
-        {% elif pillar.elife.env != 'dev' %}
-        - name: composer --no-interaction install --no-suggest --classmap-authoritative
-        {% else %}
-        - name: composer --no-interaction install --no-suggest
-        {% endif %}
-        - cwd: /srv/annotations/
+integration-smoke-tests:
+    file.managed:
+        - name: /srv/annotations/smoke_tests.sh
+        - source: salt://annotations/config/srv-annotations-smoke_tests.sh
         - user: {{ pillar.elife.deploy_user.username }}
-        # to correctly write into var/
-        - umask: 002
-        - env:
-            - SYMFONY_ENV: {{ pillar.elife.env }}
-            - COMPOSER_DISCARD_CHANGES: 'true'
-        - require:
-            - file: config-file
-            - php
-            - var-directory
+        - mode: 755
+        - require: 
+            - config-file
 
 syslog-ng-for-annotations-logs:
     file.managed:
@@ -96,7 +111,6 @@ syslog-ng-for-annotations-logs:
         - template: jinja
         - require:
             - pkg: syslog-ng
-            - composer-install
         - listen_in:
             - service: syslog-ng
 
