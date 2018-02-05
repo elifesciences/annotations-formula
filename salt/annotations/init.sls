@@ -99,6 +99,7 @@ integration-smoke-tests:
     file.managed:
         - name: /srv/annotations/smoke_tests.sh
         - source: salt://annotations/config/srv-annotations-smoke_tests.sh
+        - template: jinja
         - user: {{ pillar.elife.deploy_user.username }}
         - mode: 755
         - require: 
