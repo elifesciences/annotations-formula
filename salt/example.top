@@ -1,17 +1,12 @@
 base:
     '*':
         - elife
-        - elife.php7
-        - elife.composer
         - elife.nginx
-        - elife.nginx-php7
         - elife.aws-credentials
         - elife.aws-cli
         - elife.docker
         - elife.sidecars
+        # for testing
+        - elife.goaws
         - annotations
         - annotations.containers
-        # for testing
-        # deprecated:
-        - elife.php-dummies
-        - elife.goaws
