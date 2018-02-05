@@ -54,7 +54,7 @@ annotations-folder:
 annotations-folder-web:
     file.managed:
         - name: /srv/annotations/web/app.php
-        - contents: ''
+        - contents: '# placeholder. Nginx requires this file to pass requests to a php-fpm container'
         - makedirs: True
         - require:
             - annotations-folder
