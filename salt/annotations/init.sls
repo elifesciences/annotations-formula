@@ -14,32 +14,12 @@ annotations-folder:
     # TODO: remove when all nodes are up-to-date
     cmd.run:
         - name: |
-            rm -rf /srv/annotations/*.sha1
-            rm -rf /srv/annotations/bin/
-            rm -rf /srv/annotations/build/
-            rm -rf /srv/annotations/composer.*
-            rm -rf /srv/annotations/config/
-            rm -rf /srv/annotations/config.php.example
-            rm -rf /srv/annotations/dev.env
-            rm -rf /srv/annotations/docker-compose.*
-            rm -rf /srv/annotations/Dockerfile.*
-            rm -rf /srv/annotations/.dockerignore
-            rm -rf /srv/annotations/.env
-            rm -rf /srv/annotations/.git/
-            rm -rf /srv/annotations/.gitignore
-            rm -rf /srv/annotations/Jenkinsfile*
-            rm -rf /srv/annotations/LICENSE
-            rm -rf /srv/annotations/maintainers.txt
-            rm -rf /srv/annotations/.php_cs
-            rm -rf /srv/annotations/phpunit.xml.dist
-            rm -rf /srv/annotations/*.sh
-            rm -rf /srv/annotations/README.md
-            rm -rf /srv/annotations/scripts/
-            rm -rf /srv/annotations/src/
-            rm -rf /srv/annotations/tests/
-            rm -rf /srv/annotations/vendor/
-            # TODO: does nginx depend on this?
-            #rm -rf /srv/annotations/web
+            rm -rf /srv/annotations/app/
+            rm -rf /srv/annotations/curl_fpm
+            rm -rf /srv/annotations/var/cache/
+            rm -rf /srv/annotations/var/sessions/
+            rm -rf /srv/annotations/web/app_*.php
+            rm -rf /srv/annotations/web/bundles/
 
     file.directory:
         - name: /srv/annotations
