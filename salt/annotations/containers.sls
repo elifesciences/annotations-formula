@@ -35,11 +35,6 @@ annotations-docker-compose-yml:
 annotations-docker-containers:
     cmd.run:
         - name: |
-            # old files
-            rm -f /home/{{ pillar.elife.deploy_user.username }}/.env
-            rm -f /home/{{ pillar.elife.deploy_user.username }}/annotations.env
-            rm -f /home/{{ pillar.elife.deploy_user.username }}/annotations-docker-compose.yml
-            # end of old files
             /usr/local/bin/docker-compose up --force-recreate -d
         - user: {{ pillar.elife.deploy_user.username }}
         - cwd: /home/{{ pillar.elife.deploy_user.username }}/annotations
