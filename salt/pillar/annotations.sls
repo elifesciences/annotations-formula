@@ -37,4 +37,4 @@ elife:
     goaws:
         host: goaws  # used only by containers
         queues:
-            - annotations--{{ pillar.elife.env }}
+            - annotations--dev
