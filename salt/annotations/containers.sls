@@ -36,7 +36,7 @@ annotations-docker-containers:
     cmd.run:
         - name: |
             /usr/local/bin/docker-compose up --force-recreate -d
-        - user: {{ pillar.elife.deploy_user.username }}
+        - runas: {{ pillar.elife.deploy_user.username }}
         - cwd: /home/{{ pillar.elife.deploy_user.username }}/annotations
         - require:
             - annotations-docker-compose-.env
