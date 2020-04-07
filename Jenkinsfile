@@ -1,1 +1,1 @@
-elifeFormulaParallel('annotations', '/srv/annotations', null, ['s1804'])
+elifeFormula('annotations', '/srv/annotations', null, ['s1804'])
