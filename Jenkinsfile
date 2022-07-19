@@ -1,1 +1,1 @@
-elifeFormula('annotations', '/srv/annotations', null, ['s2004'])
+elifeFormula('annotations', '/srv/annotations')
