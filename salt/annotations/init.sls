@@ -1,4 +1,16 @@
-annotations-nginx-vhost:
+{% if pillar.elife.webserver.app == "caddy" %}
+annotations-vhost:
+    file.managed:
+        - name: /etc/caddy/sites.d/annotations
+        - source: salt://annotations/config/etc-caddy-sites.d-annotations
+        - template: jinja
+        - require:
+            - caddy-config
+        - listen_in:
+            - service: caddy-server-service
+
+{% else %}
+annotations-vhost:
     file.managed:
         - name: /etc/nginx/sites-enabled/annotations.conf
         - source: salt://annotations/config/etc-nginx-sites-enabled-annotations.conf
@@ -7,20 +19,9 @@ annotations-nginx-vhost:
             - nginx-config
         - listen_in:
             - service: nginx-server-service
+{% endif %}
 
 annotations-folder:
-    # carefully removing everything but config.php and var/logs
-    # which are mounted inside the container
-    # TODO: remove when all nodes are up-to-date
-    cmd.run:
-        - name: |
-            rm -rf /srv/annotations/app/
-            rm -rf /srv/annotations/curl_fpm
-            rm -rf /srv/annotations/var/cache/
-            rm -rf /srv/annotations/var/sessions/
-            rm -rf /srv/annotations/web/app_*.php
-            rm -rf /srv/annotations/web/bundles/
-
     file.directory:
         - name: /srv/annotations
         - user: {{ pillar.elife.deploy_user.username }}
@@ -28,13 +29,11 @@ annotations-folder:
         - recurse:
             - user
             - group
-        - require:
-            - cmd: annotations-folder
 
 annotations-folder-web:
     file.managed:
         - name: /srv/annotations/web/app.php
-        - contents: '# placeholder. Nginx requires this file to pass requests to a php-fpm container'
+        - contents: '# placeholder. Nginx and Caddy require this file to pass requests to a php-fpm container'
         - makedirs: True
         - require:
             - annotations-folder
