@@ -18,6 +18,8 @@ annotations:
         group: null
 
 elife:
+    webserver:
+        app: caddy
     aws:
         access_key_id: AKIAFAKE
         secret_access_key: fake
